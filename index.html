@@ -93,24 +93,25 @@
     font-weight: 600;
   }
 </style>
-<h2>NU.SY2026-27.1T</h2>
 
-<label for="section">Select Course-Section:</label>
-<select id="section">
-  <option value="">-- Select Course-Section --</option>
-  <option value="ENPHYS30-BSCE251P2">ENPHYS30-BSCE251P2</option>
-</select>
-<br><br>
+<div class="container">
+  <h2>NU.SY2026-27.1T</h2>
 
-<label for="studentNumber">Student Number:</label>
-<input type="text" id="studentNumber" placeholder="Enter student number">
-<br><br>
+  <label for="section">Select Course-Section:</label>
+  <select id="section">
+    <option value="">-- Select Course-Section --</option>
+    <option value="ENPHYS30-BSCE251P2">ENPHYS30-BSCE251P2</option>
+  </select>
 
-<button onclick="fetchScores()">View Scores and Running Grade</button>
+  <label for="studentNumber">Student Number:</label>
+  <input type="text" id="studentNumber" placeholder="Enter student number">
 
-<hr>
+  <button onclick="fetchScores()">View Scores and Running Grade</button>
 
-<div id="output"></div>
+  <hr>
+
+  <div id="output"></div>
+</div>
 
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbwdrytPE81w3Uy2v6X3cBfQvGlsmfvx0uNnZtOgUImDVA92_Xtpr6PGLyP6zkYMj-crKA/exec";
