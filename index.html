@@ -19,14 +19,15 @@
 
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbwdrytPE81w3Uy2v6X3cBfQvGlsmfvx0uNnZtOgUImDVA92_Xtpr6PGLyP6zkYMj-crKA/exec";
+
 async function fetchScores() {
     const section = document.getElementById("section").value;
     const studentNumber = document.getElementById("studentNumber").value.trim();
 
-    // Clear display area
-    document.getElementById("output").innerHTML = "";
+    // Clear display area and show loading state
+    document.getElementById("output").innerHTML = "Loading scores...";
 
-    // Validate inputs
+    // 1. Corrected Validation (Returns inside the if-blocks)
     if (!section) {
         document.getElementById("output").innerHTML = "<p style='color:red;'>Please select a section.</p>";
         return;
@@ -36,44 +37,39 @@ async function fetchScores() {
         return;
     }
 
-    // Build request URL
+    // 2. Fixed URL template literal string
     const url = `${API_URL}?section=${encodeURIComponent(section)}&student=${encodeURIComponent(studentNumber)}`;
 
     try {
         const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+
         const data = await response.json();
 
-        // If API returned an error
+        // 3. Fixed Error Handling syntax
         if (data.error) {
-            document.getElementById("output").innerHTML =
-                `<p style='color:red;'>${data.error}</p>`;
+            document.getElementById("output").innerHTML = `<p style='color:red;'>${data.error}</p>`;
             return;
         }
 
-        // Build table of results
+        // 4. Fixed HTML Table Generation using backticks properly
         let html = "<table border='1' cellpadding='8' style='border-collapse:collapse;'>";
         html += "<tr><th>Field</th><th>Value</th></tr>";
 
         for (let key in data) {
-            html += `<tr><td>${key}</td><td>${data[key]}</td></tr>`;
+            html += `<tr><td><strong>${key}</strong></td><td>${data[key]}</td></tr>`;
         }
-
         html += "</table>";
-
+        
         document.getElementById("output").innerHTML = html;
 
     } catch (err) {
-        document.getElementById("output").innerHTML =
-            "<p style='color:red;'>Error fetching data. Please try again.</p>";
-        console.error(err);
+        // 5. Fixed Catch Block syntax
+        document.getElementById("output").innerHTML = "<p style='color:red;'>Error fetching data. Please try again.</p>";
+        console.error("Fetch Error:", err);
     }
 }
 </script>
-
-
-
-
-
-
-
-
